@@ -17,8 +17,6 @@ public class Magazine extends  Document{
 
 
 
-
-
     @Override
     public String toString() {
         return "Magazine{" +

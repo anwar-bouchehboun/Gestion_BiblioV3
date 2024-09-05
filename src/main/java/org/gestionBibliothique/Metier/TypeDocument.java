@@ -1,5 +1,5 @@
 package org.gestionBibliothique.Metier;
 
 public enum TypeDocument {
-    Magazin,Livre,JournalScientifique,ThèseUniversitaire;
+    MAGAZINE,LIVRE,JOURNAL_SCIENTIFIQUE,THESE_UNIVERSITAIRE;
 }
