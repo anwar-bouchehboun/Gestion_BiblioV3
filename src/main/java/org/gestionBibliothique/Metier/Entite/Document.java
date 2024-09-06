@@ -1,4 +1,7 @@
-package org.gestionBibliothique.Metier;
+package org.gestionBibliothique.Metier.Entite;
+
+import org.gestionBibliothique.Metier.Enum.TypeDocument;
+
 
 import java.time.LocalDate;
 
@@ -8,18 +11,29 @@ public abstract class Document {
     private String auteur;
     private LocalDate datePublication;
     private int nombreDePages;
-    private  TypeDocument type;
+    private TypeDocument type;
     private  boolean Status;
 
-    public Document( String titre, String auteur, LocalDate datePublication, int nombreDePages,TypeDocument type) {
+    public Document(String titre, String auteur, LocalDate datePublication, int nombreDePages,TypeDocument type) {
         this.titre = titre;
+
         this.auteur = auteur;
         this.datePublication = datePublication;
         this.nombreDePages = nombreDePages;
         this.Status=false;
         this.type=type;
     }
-    public Document() {
+    public Document(){
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    // Setter pour id
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public TypeDocument getType() {
@@ -30,10 +44,7 @@ public abstract class Document {
         this.type = type;
     }
 
-    // Getters and setters
-    public Integer getId() {
-        return id;
-    }
+
 
 
     public String getTitre() {

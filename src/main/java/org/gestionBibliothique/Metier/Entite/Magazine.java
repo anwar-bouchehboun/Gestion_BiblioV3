@@ -1,8 +1,12 @@
-package org.gestionBibliothique.Metier;
+package org.gestionBibliothique.Metier.Entite;
+
+import org.gestionBibliothique.Metier.Enum.TypeDocument;
+import org.gestionBibliothique.Metier.Interface.Empruntable;
+import org.gestionBibliothique.Metier.Interface.Reservable;
 
 import java.time.LocalDate;
 
-public class Magazine extends  Document{
+public class Magazine extends  Document implements Empruntable, Reservable {
 
     private Integer Numero;
 
@@ -28,5 +32,29 @@ public class Magazine extends  Document{
                 ", Numero=" + Numero +
 
                 '}';
+    }
+
+
+    @Override
+    public void emprunter(Utilisateur utilisateur) {
+        if(!isStatus()){
+            this.setStatus(true);
+
+        }
+    }
+
+    @Override
+    public void retourner() {
+
+    }
+
+    @Override
+    public void réserver(Utilisateur utilisateur) {
+
+    }
+
+    @Override
+    public void annulerRéservation() {
+
     }
 }

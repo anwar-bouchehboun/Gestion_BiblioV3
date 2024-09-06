@@ -1,4 +1,4 @@
-package org.gestionBibliothique.Metier;
+package org.gestionBibliothique.Metier.DbConnection;
 
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
 

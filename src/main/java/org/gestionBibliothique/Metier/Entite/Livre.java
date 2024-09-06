@@ -1,11 +1,13 @@
-package org.gestionBibliothique.Metier;
+package org.gestionBibliothique.Metier.Entite;
+
+import org.gestionBibliothique.Metier.Enum.TypeDocument;
 
 import java.time.LocalDate;
 
 public class Livre extends  Document {
     private String isbn;
 
-    public Livre(String titre, String auteur, LocalDate datePublication, int nombreDePages, String isbn,TypeDocument type) {
+    public Livre(String titre, String auteur, LocalDate datePublication, int nombreDePages, String isbn, TypeDocument type) {
         super( titre, auteur, datePublication, nombreDePages,type);
         this.isbn = isbn;
     }
@@ -23,4 +25,6 @@ public class Livre extends  Document {
                 ", Isbn=" + isbn +
                 '}';
     }
+
+
 }
