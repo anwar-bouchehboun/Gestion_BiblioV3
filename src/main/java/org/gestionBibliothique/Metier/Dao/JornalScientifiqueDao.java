@@ -18,7 +18,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
 
 
 
-    HashMap<Integer, JournalScientifique> Journal= new HashMap<>();
+    public static HashMap<Integer, JournalScientifique> Journal= new HashMap<>();
 
     @Override
     public void create(JournalScientifique document) {
@@ -55,7 +55,6 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             LoggerMessage.error("Error creating JournalScientifique");
         }
     }
@@ -101,7 +100,6 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
             LoggerMessage.error("Erreur lors de la suppression du document : " + e.getMessage());
         }
     }
@@ -157,8 +155,8 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     }
 //READ DATA ID
     @Override
-    public Optional<JournalScientifique> finId(Integer id) {
-        Optional<JournalScientifique> J= checkId(id);
+    public Optional<JournalScientifique> finId(JournalScientifique document) {
+        Optional<JournalScientifique> J= checkId(document.getId());
         if (J.isPresent()) {
             JournalScientifique journal = J.get();
             LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-14s | %-25s | %-20s%n",
@@ -172,7 +170,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
                     journal.getType().name(),
                     journal.getDomaineRecherche()));
         } else {
-            System.out.println("No JournalScientifique found with ID: " + id);
+            System.out.println("No JournalScientifique found with ID: " + document.getId());
         }
         return J;
 

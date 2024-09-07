@@ -6,7 +6,7 @@ import org.gestionBibliothique.Metier.Interface.Reservable;
 
 import java.time.LocalDate;
 
-public class Magazine extends  Document implements Empruntable, Reservable {
+public class Magazine extends  Document {
 
     private Integer Numero;
 
@@ -35,26 +35,7 @@ public class Magazine extends  Document implements Empruntable, Reservable {
     }
 
 
-    @Override
-    public void emprunter(Utilisateur utilisateur) {
-        if(!isStatus()){
-            this.setStatus(true);
 
-        }
-    }
 
-    @Override
-    public void retourner() {
 
-    }
-
-    @Override
-    public void réserver(Utilisateur utilisateur) {
-
-    }
-
-    @Override
-    public void annulerRéservation() {
-
-    }
 }

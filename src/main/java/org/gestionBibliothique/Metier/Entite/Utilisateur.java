@@ -1,17 +1,23 @@
 package org.gestionBibliothique.Metier.Entite;
 
 import org.gestionBibliothique.Metier.Enum.TypeUser;
-import org.gestionBibliothique.Metier.Interface.Empruntable;
-import org.gestionBibliothique.Metier.Interface.Reservable;
+
+import java.time.LocalDate;
+
 
 public abstract   class Utilisateur {
     private Integer id;
     private String nom;
     private TypeUser typeUser;
+    private LocalDate Date_Insc;
 
-    public Utilisateur(String nom,TypeUser typeUser){
+    public Utilisateur(String nom,TypeUser typeUser,LocalDate Date_Insc){
         this.nom=nom;
         this.typeUser=typeUser;
+        this.Date_Insc=Date_Insc;
+    }
+    public Utilisateur(){
+
     }
 
     public Integer getId() {
@@ -20,6 +26,14 @@ public abstract   class Utilisateur {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public LocalDate getDate_Insc() {
+        return Date_Insc;
+    }
+
+    public void setDate_Insc(LocalDate date_Insc) {
+        Date_Insc = date_Insc;
     }
 
     public TypeUser getTypeUser() {
