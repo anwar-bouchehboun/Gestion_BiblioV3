@@ -19,7 +19,10 @@ public class Main {
 
         ProfDao profDao=new ProfDao();
 
-        Professeur p=new Professeur();
+      Professeur p=new Professeur();
+        profDao.DisplayData();
+        p.setId(10);
+        profDao.finId(p);
 
 
 
@@ -28,10 +31,7 @@ public class Main {
 
 
 
-
-    /*     JornalScientifiqueDao dao= new JornalScientifiqueDao();
-      dao.DisplayData();
-
+/*
         System.out.print("Enter ID : ");
         int id = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter title: ");

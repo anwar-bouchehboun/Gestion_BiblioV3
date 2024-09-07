@@ -75,12 +75,12 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
         stmt.setInt(6, document.getId());
         int rowsAffected = stmt.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Document avec l'ID \"" + document.getId() + "\" mis à jour avec succès.");
+           LoggerMessage.warn("Document avec l'ID \"" + document.getId() + "\" mis à jour avec succès.");
         } else {
-            System.out.println("Aucun document trouvé avec l'ID \"" + document.getId() + "\".");
+            LoggerMessage.warn("Aucun document trouvé avec l'ID \"" + document.getId() + "\".");
         }
     } catch (Exception e) {
-        throw new RuntimeException(e);
+        LoggerMessage.error("Error updating JournalScientifique");
     }
     }
 //Delete JournalScientifique
@@ -135,6 +135,10 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     //Display Data
     public void DisplayData() {
         HashMap<Integer, JournalScientifique> Journal = findAll();
+        if (Journal.isEmpty()) {
+            System.out.println("No JournalScientifique available.");
+            return;
+        }
         LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-14s | %-25s | %-20s%n",
                 "ID", "Titre", "Auteur", "Date Publication", "Nombre Pages", "Type", "Domaine Recherche"));
         for (Map.Entry<Integer, JournalScientifique> entry : Journal.entrySet()) {
@@ -156,6 +160,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
 //READ DATA ID
     @Override
     public Optional<JournalScientifique> finId(JournalScientifique document) {
+        findAll();
         Optional<JournalScientifique> J= checkId(document.getId());
         if (J.isPresent()) {
             JournalScientifique journal = J.get();
