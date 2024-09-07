@@ -1,9 +1,7 @@
 package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
-import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Entite.Professeur;
-import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Metier.Enum.TypeUser;
 import org.gestionBibliothique.Metier.Interface.UserInterface;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
@@ -16,7 +14,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 public class ProfDao implements UserInterface<Professeur> {
  public static HashMap<Integer, Professeur> Professeur= new HashMap<>();

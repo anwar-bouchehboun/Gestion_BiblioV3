@@ -1,7 +1,9 @@
 package org.gestionBibliothique;
 
+import org.gestionBibliothique.Metier.Dao.EtudienDao;
 import org.gestionBibliothique.Metier.Dao.JornalScientifiqueDao;
 import org.gestionBibliothique.Metier.Dao.ProfDao;
+import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Entite.Professeur;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
@@ -17,11 +19,11 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        ProfDao profDao=new ProfDao();
+        EtudienDao profDao=new EtudienDao();
 
-      Professeur p=new Professeur();
-        profDao.DisplayData();
-        p.setId(10);
+        Etudiant p=new Etudiant();
+        p.setId(11);
+
         profDao.finId(p);
 
 
@@ -31,7 +33,9 @@ public class Main {
 
 
 
-/*
+    /*     JornalScientifiqueDao dao= new JornalScientifiqueDao();
+      dao.DisplayData();
+
         System.out.print("Enter ID : ");
         int id = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter title: ");

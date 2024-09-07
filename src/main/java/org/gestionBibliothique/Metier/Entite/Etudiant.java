@@ -13,6 +13,9 @@ public class Etudiant extends Utilisateur {
 
     }
 
+    public Etudiant(){
+
+    }
 
     public String getIdMassar() {
         return IdMassar;
