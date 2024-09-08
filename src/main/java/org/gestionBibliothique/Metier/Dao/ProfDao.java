@@ -134,7 +134,7 @@ public class ProfDao implements UserInterface<Professeur> {
     }
 
     //Check ID
-    public Optional<Professeur> checkId(Integer id){
+    public  Optional<Professeur> checkId(Integer id){
         return Optional.ofNullable(Professeur.get(id));
 
     }

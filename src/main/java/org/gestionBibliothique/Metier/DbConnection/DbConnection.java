@@ -17,7 +17,6 @@ public class DbConnection {
         try {
             if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(DB_URL, USER, PASS);
-                LoggerMessage.info("Conexion Succes");
             }
         } catch (SQLException e) {
             LoggerMessage.error("Failed to connect to the database");
