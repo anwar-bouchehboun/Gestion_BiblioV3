@@ -22,10 +22,10 @@ public class Main {
         EtudienDao profDao=new EtudienDao();
 
         Etudiant p=new Etudiant();
-        p.setId(11);
+        p.setId(12);
 
-        profDao.finId(p);
-
+        int x=profDao.profId(p);
+System.out.printf(""+x);
 
 
 

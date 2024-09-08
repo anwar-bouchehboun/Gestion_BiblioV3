@@ -1,6 +1,7 @@
 package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
+import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Metier.Interface.DocumentInterface;
@@ -185,6 +186,24 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
         return Optional.ofNullable(Journal.get(id));
 
     }
+    public Integer readId(JournalScientifique utilisateur) {
+        String sql = "SELECT id FROM journal_scientifique WHERE id = ?";
+        try (Connection connection = DbConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setLong(1, utilisateur.getId());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                } else {
+                    return null;
+                }
+            }
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve journal_scientifique ID: " + e.getMessage());
+            return null;
+        }
+    }
 
 }

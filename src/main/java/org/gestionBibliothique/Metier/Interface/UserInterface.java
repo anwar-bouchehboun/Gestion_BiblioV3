@@ -13,5 +13,6 @@ public interface UserInterface <User extends Utilisateur> {
         void delete(User utilisateur);
         HashMap<Integer, User> findAll();
         void DisplayData();
+        Integer profId(User utilisateur);
 
 }

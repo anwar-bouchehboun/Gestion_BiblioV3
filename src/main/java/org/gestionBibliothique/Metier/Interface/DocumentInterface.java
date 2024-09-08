@@ -1,6 +1,7 @@
 package org.gestionBibliothique.Metier.Interface;
 
 import org.gestionBibliothique.Metier.Entite.Document;
+import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 
 
 import java.util.HashMap;
@@ -13,4 +14,5 @@ public interface DocumentInterface <Doc extends Document> {
     void delete(Doc document);
     HashMap<Integer, Doc> findAll();
     void DisplayData();
+    Integer readId(JournalScientifique utilisateur);
 }

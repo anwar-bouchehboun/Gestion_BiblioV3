@@ -132,6 +132,7 @@ public class ProfDao implements UserInterface<Professeur> {
             displayGet(GetDATA);
         }
     }
+
     //Check ID
     public Optional<Professeur> checkId(Integer id){
         return Optional.ofNullable(Professeur.get(id));
@@ -157,4 +158,27 @@ public class ProfDao implements UserInterface<Professeur> {
         }
         return p;
     }
+
+
+    public Integer profId(Professeur utilisateur) {
+        String sql = "SELECT id FROM professeur WHERE id = ?";
+        try (Connection connection = DbConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, utilisateur.getId());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                } else {
+                    return null;
+                }
+            }
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve professor ID: " + e.getMessage());
+            return null;
+        }
+    }
+
+
 }

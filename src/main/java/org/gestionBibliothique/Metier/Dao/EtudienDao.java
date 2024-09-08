@@ -157,4 +157,29 @@ public class EtudienDao implements UserInterface<Etudiant> {
         }
         return p;
     }
+
+    public Integer profId(Etudiant utilisateur) {
+
+        String sql = "SELECT id FROM etudiant where  id = ?";
+        try (Connection connection = DbConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, utilisateur.getId());
+         ResultSet resultSet = preparedStatement.executeQuery() ;
+                if (resultSet.next()) {
+
+                    return resultSet.getInt("id");
+
+                } else {
+                    System.out.println("No Etudiant found with ID: " + utilisateur.getId());
+                    return null;
+
+                }
+
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve etudiant ID: " + e.getMessage());
+            return null;
+        }
+    }
 }
