@@ -2,7 +2,6 @@ package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
 import org.gestionBibliothique.Metier.Entite.Etudiant;
-import org.gestionBibliothique.Metier.Entite.Professeur;
 import org.gestionBibliothique.Metier.Enum.TypeUser;
 import org.gestionBibliothique.Metier.Interface.UserInterface;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;

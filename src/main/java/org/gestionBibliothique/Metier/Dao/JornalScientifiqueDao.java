@@ -42,7 +42,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
             }
 
             stmt.setInt(4, document.getNombreDePages());
-            stmt.setObject(5, document.getType().name(), java.sql.Types.OTHER); // Use setObject with enum type
+            stmt.setObject(5, document.getType(), java.sql.Types.OTHER);
             stmt.setString(6, document.getDomaineRecherche());
 
             // Execute the update and check the result
@@ -56,7 +56,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
             }
 
         } catch (SQLException e) {
-            LoggerMessage.error("Error creating JournalScientifique");
+            LoggerMessage.error("Error creating JournalScientifique"+ e);
         }
     }
 
@@ -120,8 +120,8 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
                 p.setAuteur(resultSet.getString("auteur"));
                 p.setDatePublication(resultSet.getDate("date_publication").toLocalDate());
                 p.setNombreDePages(resultSet.getInt("nombre_de_pages"));
-                String typeValue = resultSet.getString("type");
-                p.setType(TypeDocument.valueOf(typeValue));
+              // String typeValue = resultSet.getString("type");
+                p.setType(TypeDocument.valueOf(resultSet.getString("type")));
                 p.setDomaineRecherche(resultSet.getString("domainerecherche"));
 
                 Journal.put(p.getId(), p);

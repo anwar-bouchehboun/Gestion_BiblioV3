@@ -1,8 +1,7 @@
 package org.gestionBibliothique.Metier.Entite;
 
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
-import org.gestionBibliothique.Metier.Interface.Empruntable;
-import org.gestionBibliothique.Metier.Interface.Reservable;
+
 
 import java.time.LocalDate;
 

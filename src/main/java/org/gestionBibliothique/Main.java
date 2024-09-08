@@ -17,9 +17,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
-
-
-
+        JornalScientifiqueDao dao = new JornalScientifiqueDao();
+        dao.DisplayData();
+     /*   JournalScientifique d= new JournalScientifique();
+d.setAuteur("aaaa");
+d.setTitre("fffff");
+        System.out.print("Enter publication date (yyyy-MM-dd): ");
+        LocalDate datePublication = LocalDate.parse(scanner.nextLine());
+d.setDatePublication(datePublication);
+d.setNombreDePages(333);
+d.setType(TypeDocument.JOURNAL_SCIENTIFIQUE);
+JornalScientifiqueDao dao = new JornalScientifiqueDao();
+dao.create(d);*/
 
 
 
