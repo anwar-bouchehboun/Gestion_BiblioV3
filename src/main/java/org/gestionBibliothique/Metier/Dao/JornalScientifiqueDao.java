@@ -1,7 +1,6 @@
 package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
-import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Metier.Interface.DocumentInterface;
@@ -25,7 +24,8 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     public void create(JournalScientifique document) {
         String query = "INSERT INTO journal_scientifique (titre, auteur, date_publication, nombre_de_pages, type, domainerecherche) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
 
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -66,7 +66,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     public void update(JournalScientifique document) {
     try {
         String query = "UPDATE journal_scientifique SET titre=?, auteur=?, date_publication=?, nombre_de_pages=?, domainerecherche=? WHERE id = ?";
-        Connection connection = DbConnection.getConnection();
+        Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, document.getTitre());
         stmt.setString(2, document.getAuteur());
@@ -88,8 +88,9 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     @Override
     public void delete(JournalScientifique document) {
         try {
+            Journal.remove(document.getId());
             String query = "DELETE FROM journal_scientifique WHERE id = ?";
-            Connection connection = DbConnection.getConnection();
+            Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,document.getId());
             int rowsAffected = stmt.executeUpdate();
@@ -105,13 +106,14 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
         }
     }
 
+
 //Qwery for Give data
     @Override
     public HashMap<Integer, JournalScientifique> findAll()  {
 
         try {
             String sql = "SELECT * FROM journal_scientifique";
-            Statement statement = DbConnection.getConnection().createStatement();
+            Statement statement = DbConnection.getInstance().getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 JournalScientifique p = new JournalScientifique();
@@ -120,7 +122,6 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
                 p.setAuteur(resultSet.getString("auteur"));
                 p.setDatePublication(resultSet.getDate("date_publication").toLocalDate());
                 p.setNombreDePages(resultSet.getInt("nombre_de_pages"));
-              // String typeValue = resultSet.getString("type");
                 p.setType(TypeDocument.valueOf(resultSet.getString("type")));
                 p.setDomaineRecherche(resultSet.getString("domainerecherche"));
 
@@ -128,7 +129,6 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
             }
 
             return Journal;
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -186,16 +186,18 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
         return Optional.ofNullable(Journal.get(id));
 
     }
-    public Integer readId(JournalScientifique utilisateur) {
+    public Integer readId(JournalScientifique document) {
         String sql = "SELECT id FROM journal_scientifique WHERE id = ?";
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setLong(1, utilisateur.getId());
+            preparedStatement.setLong(1, document.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return resultSet.getInt("id");
                 } else {
+                    LoggerMessage.warn("Failed Id");
                     return null;
                 }
             }
@@ -203,6 +205,27 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
         } catch (Exception e) {
             LoggerMessage.error("Failed to retrieve journal_scientifique ID: " + e.getMessage());
             return null;
+        }
+    }
+    public boolean checkIdJournal_scientifique(int id) {
+        String sql = "SELECT id FROM journal_scientifique WHERE id = ?";
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                } else {
+                    LoggerMessage.warn("Failed to retrieve journal_scientifique ID:  "+id);
+                    return false;
+                }
+            }
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve journal_scientifique ID: " + e.getMessage());
+            return false;
         }
     }
 

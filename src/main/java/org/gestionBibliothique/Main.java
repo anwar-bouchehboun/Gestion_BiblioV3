@@ -7,6 +7,8 @@ import org.gestionBibliothique.Metier.Dao.ProfDao;
 import org.gestionBibliothique.Metier.Entite.*;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Metier.Enum.TypeUser;
+import org.gestionBibliothique.Presentation.JournalScUI;
+import org.gestionBibliothique.Utilitaire.DateUtlis;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,8 +19,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        JornalScientifiqueDao dao = new JornalScientifiqueDao();
-        dao.DisplayData();
+        JournalScUI j=   new JournalScUI();
+        j.stratJournal();
      /*   JournalScientifique d= new JournalScientifique();
 d.setAuteur("aaaa");
 d.setTitre("fffff");
@@ -29,9 +31,6 @@ d.setNombreDePages(333);
 d.setType(TypeDocument.JOURNAL_SCIENTIFIQUE);
 JornalScientifiqueDao dao = new JornalScientifiqueDao();
 dao.create(d);*/
-
-
-
 
 
 

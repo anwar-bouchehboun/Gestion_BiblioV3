@@ -14,5 +14,5 @@ public interface DocumentInterface <Doc extends Document> {
     void delete(Doc document);
     HashMap<Integer, Doc> findAll();
     void DisplayData();
-    Integer readId(JournalScientifique utilisateur);
+    Integer readId(Doc document);
 }

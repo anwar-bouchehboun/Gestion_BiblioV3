@@ -22,7 +22,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public void create(Etudiant utilisateur) {
         try {
             String sql = "INSERT INTO etudiant(nom, typeuser, date_inscription, id_massar) VALUES (?, ?::TypeUser, ?, ?)";
-            Connection connection = DbConnection.getConnection();
+            Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt =connection.prepareStatement(sql);
             stmt.setString(1,utilisateur.getNom());
             stmt.setString(2,utilisateur.getTypeUser().name());
@@ -48,7 +48,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public void update(Etudiant utilisateur) {
         try {
             String query = "UPDATE etudiant SET nom=?, typeuser=?::TypeUser, id_massar=? WHERE id = ?";
-            Connection connection = DbConnection.getConnection();
+            Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
 
             stmt.setString(1, utilisateur.getNom());
@@ -72,7 +72,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public void delete(Etudiant utilisateur)  {
         try {
             String sql="DELETE FROM etudiant WHERE id =?";
-            Connection connection=DbConnection.getConnection();
+            Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt=connection.prepareStatement(sql);
             stmt.setInt(1,utilisateur.getId());
             int rowsAffected = stmt.executeUpdate();
@@ -91,7 +91,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public HashMap<Integer, Etudiant> findAll() {
         try {
             String sql="SELECT * FROM etudiant order by id DESC";
-            Statement statement = DbConnection.getConnection().createStatement();
+            Statement statement = DbConnection.getInstance().getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 Etudiant p= new Etudiant();
@@ -160,7 +160,8 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public Integer profId(Etudiant utilisateur) {
 
         String sql = "SELECT id FROM etudiant where  id = ?";
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1, utilisateur.getId());

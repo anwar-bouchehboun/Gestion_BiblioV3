@@ -23,7 +23,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public void create(Professeur utilisateur) {
          try {
              String sql = "INSERT INTO professeur(nom, typeuser, date_inscription, idmassarprof) VALUES (?, ?::TypeUser, ?, ?)";
-             Connection connection = DbConnection.getConnection();
+             Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement stmt =connection.prepareStatement(sql);
              stmt.setString(1,utilisateur.getNom());
              stmt.setString(2,utilisateur.getTypeUser().name());
@@ -49,7 +49,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public void update(Professeur utilisateur) {
         try {
             String query = "UPDATE professeur SET nom=?, typeuser=?::TypeUser, idmassarprof=? WHERE id = ?";
-            Connection connection = DbConnection.getConnection();
+            Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
 
             stmt.setString(1, utilisateur.getNom());
@@ -73,7 +73,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public void delete(Professeur utilisateur)  {
        try {
            String sql="DELETE FROM professeur WHERE id =?";
-           Connection connection=DbConnection.getConnection();
+           Connection connection = DbConnection.getInstance().getConnection();
            PreparedStatement stmt=connection.prepareStatement(sql);
            stmt.setInt(1,utilisateur.getId());
            int rowsAffected = stmt.executeUpdate();
@@ -92,7 +92,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public HashMap<Integer, Professeur> findAll() {
         try {
             String sql="SELECT * FROM professeur order by id DESC";
-            Statement statement = DbConnection.getConnection().createStatement();
+            Statement statement = DbConnection.getInstance().getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 Professeur p= new Professeur();
@@ -162,7 +162,8 @@ public class ProfDao implements UserInterface<Professeur> {
 
     public Integer profId(Professeur utilisateur) {
         String sql = "SELECT id FROM professeur WHERE id = ?";
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setLong(1, utilisateur.getId());

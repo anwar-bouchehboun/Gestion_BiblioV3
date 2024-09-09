@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class EmpruntDao implements Empruntable<Document> {
 
@@ -23,7 +22,7 @@ public class EmpruntDao implements Empruntable<Document> {
   public Integer documentId(int id){
 
       String sql = "SELECT id FROM document where  id = ?";
-      try (Connection connection = DbConnection.getConnection();
+      try (Connection connection = DbConnection.getInstance().getConnection();
            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
           preparedStatement.setInt(1,id);
@@ -50,7 +49,7 @@ public class EmpruntDao implements Empruntable<Document> {
         String query = "UPDATE emprunt SET date_retour = ?, status = false WHERE id = ?";
 
         try (
-                Connection connection = DbConnection.getConnection();
+                Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
             statement.setInt(2, empruntId);
@@ -78,7 +77,7 @@ public class EmpruntDao implements Empruntable<Document> {
         String query = "INSERT INTO emprunt (id_utilisateur,id_document, date_emprunt, status) VALUES (?, ?, ?, ?)";
 
         try (
-                Connection connection = DbConnection.getConnection();
+                Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, utilisateur.getId());
             statement.setInt(2, idDoc);
@@ -99,7 +98,8 @@ public class EmpruntDao implements Empruntable<Document> {
 
     public boolean checkDoc(int id ){
         String sql = "SELECT status FROM emprunt where  id_document = ?";
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);

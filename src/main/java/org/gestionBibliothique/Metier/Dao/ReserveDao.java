@@ -29,7 +29,8 @@ public class ReserveDao implements Reserver<Document> {
         }else {
             String query = "INSERT INTO reservations (utilisateur_id, document_id, date_reservation, status) VALUES (?, ?, ?, ?)";
 
-            try (    Connection connection = DbConnection.getConnection();
+            try (
+                    Connection connection = DbConnection.getInstance().getConnection();
                      PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setInt(1, utilisateur.getId());
                 statement.setInt(2, idDoc);
@@ -49,7 +50,8 @@ public class ReserveDao implements Reserver<Document> {
     public void annulerReservation(int id) {
         String query = "UPDATE reservations SET status = false WHERE id = ?";
 
-        try (    Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
                  PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
 
@@ -67,7 +69,8 @@ public class ReserveDao implements Reserver<Document> {
     public Integer documentId(int id){
 
         String sql = "SELECT id FROM document where  id = ?";
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);
@@ -91,7 +94,8 @@ public class ReserveDao implements Reserver<Document> {
 
     public boolean checkDoc(int id ){
         String sql = "SELECT status FROM reservations where  id_document = ?";
-        try (Connection connection = DbConnection.getConnection();
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);
@@ -122,7 +126,7 @@ public class ReserveDao implements Reserver<Document> {
        }else {
         String query = "INSERT INTO reservations (utilisateur_id, document_id, date_reservation, status) VALUES (?, ?, ?, ?)";
 
-        try (    Connection connection = DbConnection.getConnection();
+        try (    Connection connection = DbConnection.getInstance().getConnection();
               PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, utilisateur.getId());
             statement.setInt(2, document.getId());
@@ -142,7 +146,7 @@ public class ReserveDao implements Reserver<Document> {
     public void cancelReservation(int reservationId) throws SQLException {
         String query = "UPDATE reservations SET status = false WHERE id = ?";
 
-        try (    Connection connection = DbConnection.getConnection();
+        try (    Connection connection = DbConnection.getInstance().getConnection();
                  PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, reservationId);
 
