@@ -27,7 +27,7 @@ public class ProfDao implements UserInterface<Professeur> {
              PreparedStatement stmt =connection.prepareStatement(sql);
              stmt.setString(1,utilisateur.getNom());
              stmt.setString(2,utilisateur.getTypeUser().name());
-             LocalDate dateInsc = utilisateur.getDate_Insc();
+             LocalDate dateInsc = LocalDate.now();
              stmt.setDate(3, java.sql.Date.valueOf(dateInsc));
              stmt.setString(4,utilisateur.getIdMassarProf());
              int row= stmt.executeUpdate();

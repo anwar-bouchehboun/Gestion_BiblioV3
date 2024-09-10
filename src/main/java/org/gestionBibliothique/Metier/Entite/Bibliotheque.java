@@ -11,9 +11,10 @@ public class Bibliotheque {
 
     }
 
-
+//JournalScientifique
     public void diplayDataJournalScientifique(){
         HashMap<Integer, JournalScientifique> dataJornal= jornalScientifiqueDao.findAll();
            dataJornal.values().forEach(JournalScientifique::afficherDetails);
     }
+
 }

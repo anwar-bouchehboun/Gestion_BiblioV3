@@ -161,18 +161,13 @@ do{
                }
         }while (true);
     }
-
-
-
-
-
-
     public void rrechercheTitreJournal(){
         int id=  InputValidator.getIntInput("Entre Recherche ID :");
         journalScientifique.setId(id);
          jornalScientifiqueDao.finId(journalScientifique);
 
     }
+
     //These
     public void createThese(){
         String titre=  InputValidator.getStringInput("Entre Titre :");
@@ -217,9 +212,6 @@ do{
 
         }
     }
-   /* public void displayDataThese(){
-        theseUniversitaireDao.DisplayData();
-    }*/
     public void displayDataThese(){
         HashMap<Integer,ThèseUniversitaire> data=theseUniversitaireDao.findAll();
         LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-25s | %-20s%n",
