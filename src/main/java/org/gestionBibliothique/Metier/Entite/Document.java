@@ -87,6 +87,7 @@ public abstract class Document {
         Status = status;
     }
 
+    public abstract void afficherDetails();
 
     @Override
     public String toString() {
