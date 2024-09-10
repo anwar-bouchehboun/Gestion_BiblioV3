@@ -1,6 +1,7 @@
 package org.gestionBibliothique.Metier.Entite;
 
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
+import org.gestionBibliothique.Utilitaire.LoggerMessage;
 
 
 import java.time.LocalDate;
@@ -15,7 +16,13 @@ public class Magazine extends  Document {
         super( titre, auteur, datePublication, nombreDePages,type);
         this.Numero=Numero;
     }
+    public  void afficherDetails(){
+        System.out.printf("%-10d | %-20s | %-30s | %-15s | %-10d  | %-15s  %n",
+                getId(), getTitre(), getAuteur(), getDatePublication(), getNombreDePages(),Numero);
 
+       LoggerMessage.info("---------------------------------------------------------------------------------------------------------------------------------");
+
+    }
 
 
 
