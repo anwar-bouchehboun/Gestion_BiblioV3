@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
-   /*    JournalTheseUI j=   new JournalTheseUI();
+     /* JournalTheseUI j=   new JournalTheseUI();
         j.stratJournal();*/
         UserUI u= new UserUI();
         u.Strat();

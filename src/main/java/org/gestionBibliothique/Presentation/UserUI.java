@@ -2,9 +2,13 @@ package org.gestionBibliothique.Presentation;
 
 import org.gestionBibliothique.Metier.Dao.ProfDao;
 import org.gestionBibliothique.Metier.Entite.Etudiant;
+import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Entite.Professeur;
 import org.gestionBibliothique.Metier.Enum.TypeUser;
 import org.gestionBibliothique.Utilitaire.InputValidator;
+import org.gestionBibliothique.Utilitaire.LoggerMessage;
+
+import java.util.HashMap;
 
 public class UserUI {
 
@@ -23,8 +27,11 @@ public class UserUI {
             switch(choix){
                 case 1:menuMiseAjourUserProf();
                         break;
-                case 2:break;
-                case 3: break;
+                case 2:
+                    break;
+                case 3:
+                    menuRechercheUser();
+                    break;
                 case 4 :
                     System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit Menu User_______------" + CostumColor.RESET);
                     return;
@@ -64,7 +71,7 @@ public class UserUI {
             int input= InputValidator.getIntInput("Entre Choix : ");
             switch(input){
                 case 1:
-
+                    rechercheIdProf();
                     break;
                 case 2:
                     break;
@@ -77,6 +84,7 @@ public class UserUI {
             }
         }while (true);
     }
+
     public void menuMiseAjourUserProf(){
         do {
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
@@ -95,10 +103,13 @@ public class UserUI {
                     createProf();
                     break;
                 case 2:
+                    updatProf();
                     break;
                 case 3:
+                    deleteProf();
                     break;
                 case 4 :
+                    displayDataProf();
                     break;
                 case 5 :
                     System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit MenuThese_____------" + CostumColor.RESET);
@@ -118,5 +129,35 @@ public class UserUI {
         professeur.setTypeUser(TypeUser.Professeur);
         profDao.create(professeur);
 
+    }
+    public void updatProf(){
+        int id = InputValidator.getIntInput(" Entre Nombre Modifier");
+        if(profDao.checkIdProf(id)){
+        String nomProf=InputValidator.getStringInput("Entre Professeur");
+        String idmassarProf=InputValidator.getStringInput("Entre IdmssarProf");
+        professeur.setId(id);
+        professeur.setNom(nomProf);
+        professeur.setIdMassarProf(idmassarProf);
+        profDao.update(professeur);
+
+        }
+    }
+    public  void deleteProf(){
+        int id = InputValidator.getIntInput(" Entre Nombre Supprimer");
+        if(profDao.checkIdProf(id)){
+            professeur.setId(id);
+            profDao.delete(professeur);
+        }
+    }
+    public void displayDataProf(){
+        HashMap<Integer, Professeur> dataJornal= profDao.findAll();
+        LoggerMessage.info(String.format("%-10s | %-30s | %-15s | %-15s %n",
+                "ID", "Titre", "Date Publication", "IDMassar"));
+        dataJornal.values().forEach(Professeur::afficherDetails);
+    }
+    public void rechercheIdProf(){
+        int id=  InputValidator.getIntInput("Entre Recherche ID :");
+        professeur.setId(id);
+        profDao.finId(professeur);
     }
 }

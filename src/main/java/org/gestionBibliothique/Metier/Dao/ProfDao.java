@@ -48,14 +48,14 @@ public class ProfDao implements UserInterface<Professeur> {
     @Override
     public void update(Professeur utilisateur) {
         try {
-            String query = "UPDATE professeur SET nom=?, typeuser=?::TypeUser, idmassarprof=? WHERE id = ?";
+            String query = "UPDATE professeur SET nom=?, idmassarprof=? WHERE id = ?";
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
 
             stmt.setString(1, utilisateur.getNom());
-            stmt.setString(2, utilisateur.getTypeUser().name());
-            stmt.setString(3, utilisateur.getIdMassarProf());
-            stmt.setInt(4, utilisateur.getId());
+       //     stmt.setString(2, utilisateur.getTypeUser().name());
+            stmt.setString(2, utilisateur.getIdMassarProf());
+            stmt.setInt(3, utilisateur.getId());
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -72,6 +72,7 @@ public class ProfDao implements UserInterface<Professeur> {
     @Override
     public void delete(Professeur utilisateur)  {
        try {
+           Professeur.remove(utilisateur.getId());
            String sql="DELETE FROM professeur WHERE id =?";
            Connection connection = DbConnection.getInstance().getConnection();
            PreparedStatement stmt=connection.prepareStatement(sql);
@@ -178,6 +179,27 @@ public class ProfDao implements UserInterface<Professeur> {
         } catch (Exception e) {
             LoggerMessage.error("Failed to retrieve professor ID: " + e.getMessage());
             return null;
+        }
+    }
+    public boolean checkIdProf(int id) {
+        String sql = "SELECT id FROM professeur WHERE id = ?";
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                } else {
+                    LoggerMessage.warn("Failed to retrieve professeur ID:  "+id);
+                    return false;
+                }
+            }
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve professeur ID: " + e.getMessage());
+            return false;
         }
     }
 

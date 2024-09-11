@@ -52,5 +52,6 @@ public abstract   class Utilisateur {
         this.nom = nom;
     }
 
+    public abstract void afficherDetails();
 
 }

@@ -71,6 +71,8 @@ public class EtudienDao implements UserInterface<Etudiant> {
     @Override
     public void delete(Etudiant utilisateur)  {
         try {
+            Etu.remove(utilisateur.getId());
+
             String sql="DELETE FROM etudiant WHERE id =?";
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt=connection.prepareStatement(sql);
@@ -180,6 +182,27 @@ public class EtudienDao implements UserInterface<Etudiant> {
         } catch (Exception e) {
             LoggerMessage.error("Failed to retrieve etudiant ID: " + e.getMessage());
             return null;
+        }
+    }
+    public boolean checkIdProf(int id) {
+        String sql = "SELECT id FROM etudiant WHERE id = ?";
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                } else {
+                    LoggerMessage.warn("Failed to retrieve professeur ID:  "+id);
+                    return false;
+                }
+            }
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve professeur ID: " + e.getMessage());
+            return false;
         }
     }
 }
