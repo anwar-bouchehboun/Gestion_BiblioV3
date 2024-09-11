@@ -17,11 +17,13 @@ public class Magazine extends  Document {
         this.Numero=Numero;
     }
     public  void afficherDetails(){
-        System.out.printf("%-10d | %-20s | %-30s | %-15s | %-10d  | %-15s  %n",
-                getId(), getTitre(), getAuteur(), getDatePublication(), getNombreDePages(),Numero);
-
-       LoggerMessage.info("---------------------------------------------------------------------------------------------------------------------------------");
-
+        LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-25s | %-20s%n",
+                getId(),
+                getTitre(),
+                getAuteur(),
+                getDatePublication(),
+                getNombreDePages(),
+                Numero));
     }
 
 

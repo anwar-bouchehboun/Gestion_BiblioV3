@@ -3,6 +3,7 @@ package org.gestionBibliothique.Metier.Entite;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
 
+import javax.print.attribute.standard.MediaSize;
 import java.time.LocalDate;
 
 public class Livre extends  Document {
@@ -12,16 +13,29 @@ public class Livre extends  Document {
         super( titre, auteur, datePublication, nombreDePages,type);
         this.isbn = isbn;
     }
-    public  void afficherDetails(){
-        System.out.printf("%-10d | %-20s | %-30s | %-15s | %-10d  | %-15s  %n",
-                getId(), getTitre(), getAuteur(), getDatePublication(), getNombreDePages(),isbn);
 
-
-        LoggerMessage.info("---------------------------------------------------------------------------------------------------------------------------------");
+    public Livre() {
 
     }
 
+    public  void afficherDetails(){
+        LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-25s | %-20s%n",
+                getId(),
+                getTitre(),
+                getAuteur(),
+                getDatePublication(),
+                getNombreDePages(),
+                isbn));
 
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
     @Override
     public String toString() {
