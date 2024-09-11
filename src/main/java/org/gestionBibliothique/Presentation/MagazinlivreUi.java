@@ -1,8 +1,9 @@
 package org.gestionBibliothique.Presentation;
 
 import org.gestionBibliothique.Metier.Dao.LivreDao;
+import org.gestionBibliothique.Metier.Dao.MagazinDao;
 import org.gestionBibliothique.Metier.Entite.Livre;
-import org.gestionBibliothique.Metier.Entite.ThèseUniversitaire;
+import org.gestionBibliothique.Metier.Entite.Magazine;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Utilitaire.DateUtlis;
 import org.gestionBibliothique.Utilitaire.InputValidator;
@@ -15,6 +16,8 @@ public class MagazinlivreUi {
 
     public final LivreDao livreDao=new LivreDao();
     public final Livre  livre = new Livre();
+    public final Magazine magazine=new Magazine();
+    public final MagazinDao magazinDao= new MagazinDao();
       public  MagazinlivreUi(){
 
       }
@@ -27,7 +30,8 @@ public class MagazinlivreUi {
                   case 1:
                       menuMiseAjourLivre();
                       break;
-                  case 2:break;
+                  case 2: menuMiseAjourMagazine();
+                      break;
                   case 3:break;
                   case 4:break;
                   case 5:
@@ -55,8 +59,6 @@ public class MagazinlivreUi {
         System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
 
     }
-
-
 
     public void menuMiseAjourLivre(){
         do {
@@ -149,6 +151,92 @@ public class MagazinlivreUi {
                   "ID", "Titre", "Auteur", "Date Publication", "Nombre Pages",  "Isbn"));
           LoggerMessage.info("---------------------------------------------------------------------------------------------------------------------------------");
           livre.values().forEach(Livre::afficherDetails);
+      }
+//Magazine
+public void menuMiseAjourMagazine(){
+    do {
+        System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
+        System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
+        System.out.println("|Press 1 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Ajouter un document (Magazine )"      + CostumColor.RESET);
+        System.out.println("|Press 2 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Modifier un document Magazine "  + CostumColor.RESET);
+        System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Supprimer un document   (Magazine )"+ CostumColor.RESET);
+        System.out.println("|Press 4 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche un document   (Magazine)"+ CostumColor.RESET);
+        System.out.println("|Press 5 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Magazine"+ CostumColor.RESET);
+        System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
+        System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
+
+        int input=InputValidator.getIntInput("Entre Choix : ");
+        switch(input){
+            case 1:
+            createMagazine();
+                break;
+            case 2:
+                updateMagazine();
+                break;
+            case 3:
+                deleteMagazine();
+                break;
+            case 4 :
+                diplayDataMagaizne();
+                break;
+            case 5 :
+                System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit Menu_____------" + CostumColor.RESET);
+                return;
+            default:
+                System.out.println(CostumColor.RED_BOLD_BRIGHT + "Invalid choice");
+                break;
+        }
+    }while (true);
+}
+public  void createMagazine(){
+    String titre=  InputValidator.getStringInput("Entre Titre :");
+    String auteur=  InputValidator.getStringInput("Entre Auteur :");
+    int numberPage= InputValidator.getIntInput("Entre Nombre de page :");
+    LocalDate date= DateUtlis.getDateInput("Entre Date Publication :");
+    int numero=InputValidator.getIntInput("Entre Numero  : ");
+    magazine.setNumero(numero);
+    magazine.setTitre(titre);
+    magazine.setAuteur(auteur);
+    magazine.setNombreDePages(numberPage);
+    magazine.setDatePublication(date);
+    magazine.setType(TypeDocument.MAGAZINE);
+    magazinDao.create(magazine);
+}
+public  void updateMagazine(){
+          int id =InputValidator.getIntInput("Entre ID Modifier : ");
+          if(magazinDao.checkIdMagazine(id)){
+              String titre=  InputValidator.getStringInput("Entre Titre :");
+              String auteur=  InputValidator.getStringInput("Entre Auteur :");
+              int numberPage= InputValidator.getIntInput("Entre Nombre de page :");
+              LocalDate date= DateUtlis.getDateInput("Entre Date Publication :");
+              int numero=InputValidator.getIntInput("Entre Numero  : ");
+
+              magazine.setId(id);
+              magazine.setNumero(numero);
+              magazine.setTitre(titre);
+              magazine.setAuteur(auteur);
+              magazine.setNombreDePages(numberPage);
+              magazine.setDatePublication(date);
+              magazinDao.update(magazine);
+          }
+      }
+
+      public void deleteMagazine(){
+          int id =InputValidator.getIntInput("Entre ID Supprimer :");
+
+          if(magazinDao.checkIdMagazine(id)){
+              magazine.setId(id);
+              magazinDao.delete(magazine);
+
+          }
+      }
+
+      public void diplayDataMagaizne(){
+          HashMap<Integer,Magazine> magazine=magazinDao.findAll();
+          LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-25s | %-20s%n",
+                  "ID", "Titre", "Auteur", "Date Publication", "Nombre Pages",  "Numero"));
+          LoggerMessage.info("---------------------------------------------------------------------------------------------------------------------------------");
+          magazine.values().forEach(Magazine::afficherDetails);
       }
 
 }

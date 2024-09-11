@@ -16,6 +16,9 @@ public class Magazine extends  Document {
         super( titre, auteur, datePublication, nombreDePages,type);
         this.Numero=Numero;
     }
+    public  Magazine(){
+
+    }
     public  void afficherDetails(){
         LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-25s | %-20s%n",
                 getId(),
@@ -26,8 +29,13 @@ public class Magazine extends  Document {
                 Numero));
     }
 
+    public Integer getNumero() {
+        return Numero;
+    }
 
-
+    public void setNumero(Integer numero) {
+        Numero = numero;
+    }
 
     @Override
     public String toString() {

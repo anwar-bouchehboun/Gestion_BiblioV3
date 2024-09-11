@@ -1,9 +1,11 @@
 package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
-import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Entite.Livre;
+import org.gestionBibliothique.Metier.Entite.Magazine;
+import org.gestionBibliothique.Metier.Entite.Professeur;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
+import org.gestionBibliothique.Metier.Enum.TypeUser;
 import org.gestionBibliothique.Metier.Interface.DocumentInterface;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
 
@@ -12,16 +14,16 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class LivreDao implements DocumentInterface<Livre> {
-    public LivreDao(){
+public class MagazinDao implements DocumentInterface<Magazine> {
+
+    public MagazinDao(){
 
     }
-    public static HashMap<Integer, Livre> livre= new HashMap<>();
-
+    public static HashMap<Integer, Magazine> magazine= new HashMap<>();
 
     @Override
-    public void create(Livre document) {
-        String query = "INSERT INTO livre (titre, auteur, date_publication, nombre_de_pages, type,isbn) VALUES (?, ?, ?, ?, ?, ?)";
+    public void create(Magazine document) {
+        String query = "INSERT INTO magazine (titre, auteur, date_publication, nombre_de_pages, type,numero) VALUES (?, ?, ?, ?, ?, ?)";
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
 
@@ -34,12 +36,12 @@ public class LivreDao implements DocumentInterface<Livre> {
             stmt.setDate(3, java.sql.Date.valueOf(datePublication));
             stmt.setInt(4, document.getNombreDePages());
             stmt.setObject(5, document.getType(), java.sql.Types.OTHER);
-            stmt.setString(6, document.getIsbn());
+            stmt.setInt(6, document.getNumero());
 
             // Execute the update and check the result
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
-                LoggerMessage.info("livre created successfully.");
+                LoggerMessage.info("Magazine created successfully.");
 
             } else {
                 LoggerMessage.warn("Failed to create livre.");
@@ -53,18 +55,17 @@ public class LivreDao implements DocumentInterface<Livre> {
     }
 
 
-
     @Override
-    public void update(Livre document) {
+    public void update(Magazine document) {
         try {
-            String query = "UPDATE livre SET titre=?, auteur=?, date_publication=?, nombre_de_pages=?,isbn=? WHERE id = ?";
+            String query = "UPDATE magazine SET titre=?, auteur=?, date_publication=?, nombre_de_pages=?,numero=? WHERE id = ?";
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, document.getTitre());
             stmt.setString(2, document.getAuteur());
             stmt.setDate(3, java.sql.Date.valueOf(document.getDatePublication()));
             stmt.setInt(4, document.getNombreDePages());
-            stmt.setString(5, document.getIsbn());
+            stmt.setInt(5, document.getNumero());
             stmt.setInt(6, document.getId());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -73,15 +74,15 @@ public class LivreDao implements DocumentInterface<Livre> {
                 LoggerMessage.warn("Aucun document trouvé avec l'ID \"" + document.getId() + "\".");
             }
         } catch (Exception e) {
-            LoggerMessage.error("Error updating Livre");
+            LoggerMessage.error("Error updating Magazine");
         }
     }
 
     @Override
-    public void delete(Livre document) {
+    public void delete(Magazine document) {
         try {
-           livre.remove(document.getId());
-            String query = "DELETE FROM livre WHERE id = ?";
+            magazine.remove(document.getId());
+            String query = "DELETE FROM magazine WHERE id = ?";
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,document.getId());
@@ -99,26 +100,26 @@ public class LivreDao implements DocumentInterface<Livre> {
     }
 
     @Override
-    public HashMap<Integer, Livre> findAll() {
+    public HashMap<Integer, Magazine> findAll() {
 
         try {
-            String sql = "SELECT * FROM livre";
+            String sql = "SELECT * FROM magazine";
             Statement statement = DbConnection.getInstance().getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Livre p = new Livre();
+                Magazine p = new Magazine();
                 p.setId(resultSet.getInt("id"));
                 p.setTitre(resultSet.getString("titre"));
                 p.setAuteur(resultSet.getString("auteur"));
                 p.setDatePublication(resultSet.getDate("date_publication").toLocalDate());
                 p.setNombreDePages(resultSet.getInt("nombre_de_pages"));
                 p.setType(TypeDocument.valueOf(resultSet.getString("type")));
-                p.setIsbn(resultSet.getString("isbn"));
+                p.setNumero(resultSet.getInt("numero"));
 
-               livre .put(p.getId(), p);
+                magazine .put(p.getId(), p);
             }
 
-            return livre;
+            return magazine;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -130,8 +131,8 @@ public class LivreDao implements DocumentInterface<Livre> {
     }
 
     @Override
-    public Integer readId(Livre document) {
-        String sql = "SELECT id FROM livre WHERE id = ?";
+    public Integer readId(Magazine document) {
+        String sql = "SELECT id FROM magazine WHERE id = ?";
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -147,18 +148,19 @@ public class LivreDao implements DocumentInterface<Livre> {
             }
 
         } catch (Exception e) {
-            LoggerMessage.error("Failed to retrieve livre ID: " + e.getMessage());
+            LoggerMessage.error("Failed to retrieve magazine ID: " + e.getMessage());
             return null;
         }
     }
 
-    public Optional<Livre> finId(Livre document) {
+
+    public Optional<Magazine> finId(Magazine document) {
         findAll();
-        Optional<Livre> J= checkId(document.getId());
+        Optional<Magazine> J= checkId(document.getId());
         if (J.isPresent()) {
-            Livre l = J.get();
+            Magazine l = J.get();
             LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-14s | %-25s | %-20s%n",
-                    "ID", "Titre", "Auteur", "Date Publication", "Nombre Pages", "Type", "Isbn"));
+                    "ID", "Titre", "Auteur", "Date Publication", "Nombre Pages", "Type", "Numero"));
             LoggerMessage.info(String.format("%-10d | %-20s | %-20s | %-20s | %-14d | %-25s | %-20s%n",
                     l.getId(),
                     l.getTitre(),
@@ -166,20 +168,20 @@ public class LivreDao implements DocumentInterface<Livre> {
                     l.getDatePublication().toString(),
                     l.getNombreDePages(),
                     l.getType().name(),
-                    l.getIsbn()));
+                    l.getNumero()));
         } else {
-            System.out.println("No LIVRE found with ID: " + document.getId());
+            System.out.println("No MAGAZINE found with ID: " + document.getId());
         }
         return J;
 
     }
     //Check ID
-    public Optional<Livre> checkId(Integer id){
-        return Optional.ofNullable(livre.get(id));
+    public Optional<Magazine> checkId(Integer id){
+        return Optional.ofNullable(magazine.get(id));
 
     }
-    public boolean checkIdLivre(int id) {
-        String sql = "SELECT id FROM livre WHERE id = ?";
+    public boolean checkIdMagazine(int id) {
+        String sql = "SELECT id FROM magazine WHERE id = ?";
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
