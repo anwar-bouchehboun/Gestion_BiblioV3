@@ -26,7 +26,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
             PreparedStatement stmt =connection.prepareStatement(sql);
             stmt.setString(1,utilisateur.getNom());
             stmt.setString(2,utilisateur.getTypeUser().name());
-            LocalDate dateInsc = utilisateur.getDate_Insc();
+            LocalDate dateInsc = LocalDate.now();
             stmt.setDate(3, java.sql.Date.valueOf(dateInsc));
             stmt.setString(4,utilisateur.getIdMassar());
             int row= stmt.executeUpdate();
@@ -47,14 +47,13 @@ public class EtudienDao implements UserInterface<Etudiant> {
     @Override
     public void update(Etudiant utilisateur) {
         try {
-            String query = "UPDATE etudiant SET nom=?, typeuser=?::TypeUser, id_massar=? WHERE id = ?";
+            String query = "UPDATE etudiant SET nom=?,id_massar=? WHERE id = ?";
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement stmt = connection.prepareStatement(query);
 
             stmt.setString(1, utilisateur.getNom());
-            stmt.setString(2, utilisateur.getTypeUser().name());
-            stmt.setString(3, utilisateur.getIdMassar());
-            stmt.setInt(4, utilisateur.getId());
+            stmt.setString(2, utilisateur.getIdMassar());
+            stmt.setInt(3, utilisateur.getId());
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -184,7 +183,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
             return null;
         }
     }
-    public boolean checkIdProf(int id) {
+    public boolean checkIdEtu(int id) {
         String sql = "SELECT id FROM etudiant WHERE id = ?";
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
