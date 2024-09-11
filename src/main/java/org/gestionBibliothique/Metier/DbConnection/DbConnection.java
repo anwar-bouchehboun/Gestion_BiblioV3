@@ -26,7 +26,7 @@ public class DbConnection {
     public static DbConnection getInstance() {
         if (instance == null) {
             synchronized (DbConnection.class) {
-                if (instance == null) {  // Double-check locking
+                if (instance == null) {
                     instance = new DbConnection();
                 }
             }

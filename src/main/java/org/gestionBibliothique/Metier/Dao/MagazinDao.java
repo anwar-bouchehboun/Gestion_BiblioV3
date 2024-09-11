@@ -1,11 +1,8 @@
 package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
-import org.gestionBibliothique.Metier.Entite.Livre;
 import org.gestionBibliothique.Metier.Entite.Magazine;
-import org.gestionBibliothique.Metier.Entite.Professeur;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
-import org.gestionBibliothique.Metier.Enum.TypeUser;
 import org.gestionBibliothique.Metier.Interface.DocumentInterface;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
 
