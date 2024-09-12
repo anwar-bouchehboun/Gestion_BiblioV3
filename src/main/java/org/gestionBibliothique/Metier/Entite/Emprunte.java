@@ -8,20 +8,22 @@ public class Emprunte {
     private Integer empruntId;
     private LocalDate dateEmprunt;
     private LocalDate dateRetour;
-    private boolean status ;
+    private boolean emprunt_status ;
+    private boolean reservation_status ;
     private Utilisateur utilisateur;
     private Document document;
 
-    public Emprunte(int empruntId, LocalDate dateEmprunt, LocalDate dateRetour,boolean status, Utilisateur utilisateur,Document document) {
+    public Emprunte(Integer empruntId, LocalDate dateEmprunt, LocalDate dateRetour, boolean emprunt_status, boolean reservation_status, Utilisateur utilisateur, Document document) {
         this.empruntId = empruntId;
         this.dateEmprunt = dateEmprunt;
         this.dateRetour = dateRetour;
+        this.emprunt_status = emprunt_status;
+        this.reservation_status = reservation_status;
         this.utilisateur = utilisateur;
-        this.status=status;
-        this.document=document;
-
+        this.document = document;
     }
-   public Emprunte(){
+
+    public Emprunte(){
 
    }
 
@@ -33,12 +35,20 @@ public class Emprunte {
         this.document = document;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isEmprunt_status() {
+        return emprunt_status;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setEmprunt_status(boolean emprunt_status) {
+        this.emprunt_status = emprunt_status;
+    }
+
+    public boolean isReservation_status() {
+        return reservation_status;
+    }
+
+    public void setReservation_status(boolean reservation_status) {
+        this.reservation_status = reservation_status;
     }
 
     public int getEmpruntId() {

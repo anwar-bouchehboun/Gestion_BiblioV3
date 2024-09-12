@@ -1,6 +1,6 @@
 package org.gestionBibliothique.Presentation;
 
-import org.gestionBibliothique.Metier.Dao.EmpruntDao;
+import org.gestionBibliothique.Metier.Dao.*;
 import org.gestionBibliothique.Metier.Entite.Document;
 import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.Livre;
@@ -11,6 +11,12 @@ import java.lang.reflect.Member;
 
 public class ConsoleUi {
 
+    public static EtudienDao etudienDao=new EtudienDao();
+    public static ProfDao profDao=new ProfDao();
+    public static LivreDao livreDao = new LivreDao();
+    public static MagazinDao magazinDao = new MagazinDao();
+    public static TheseUniversitaireDao theseUniversitaireDao= new TheseUniversitaireDao();
+    public static  JornalScientifiqueDao jornalScientifiqueDao=new JornalScientifiqueDao();
     public static   JournalTheseUI journalTheseUI=new JournalTheseUI();
     public static MagazinlivreUi magazinlivreUi = new MagazinlivreUi();
     public static UserUI userUI=new UserUI();
@@ -79,9 +85,12 @@ public class ConsoleUi {
                     menuLivreEmprunt();
                     break;
                 case 2:
-                    break;
-                case 3:break;
-                case 4:break;
+
+                        break;
+                case 3:
+                        break;
+                case 4:
+                        break;
                 case 5 :
                     System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit Menu Emprunt_______------" + CostumColor.RESET);
                     return;
@@ -95,17 +104,22 @@ public class ConsoleUi {
 public static void empruntLivre(){
     Document livre=new Livre();
     Utilisateur user= new Etudiant();
+
     int idoc =InputValidator.getIntInput("Entre Nombre Livre : ");
     int  iduser=InputValidator.getIntInput("Entre Nombre  User :");
-    livre.setId(idoc);
-    user.setId(iduser);
-   if( empruntDao.checkReserve(idoc))
-   {
-       System.out.println(CostumColor.PURPLE_BOLD_BRIGHT +"Document Deja reservé!"+ CostumColor.RESET);
+    if(livreDao.checkIdLivre(idoc)  && etudienDao.checkIdEtu(iduser)){
+        livre.setId(idoc);
+        user.setId(iduser);
+        if( empruntDao.checkReserve(idoc))
+        {
+            System.out.println(CostumColor.PURPLE_BOLD_BRIGHT +"Document Deja reservé!"+ CostumColor.RESET);
 
-      }else {
-       empruntDao.emprunter(user,livre);
-   }
+        }else {
+            empruntDao.emprunter(user,livre);
+        }
+    }
+
+
 
 }
 public  static void reserveLivre(){
@@ -113,20 +127,22 @@ public  static void reserveLivre(){
     Utilisateur user= new Etudiant();
     int idoc =InputValidator.getIntInput("Entre Nombre Livre : ");
     int  iduser=InputValidator.getIntInput("Entre Nombre  User :");
-   if(!empruntDao.checkReserve(idoc)) {
-       livre.setId(idoc);
-       user.setId(iduser);
-       empruntDao.reserver(user,livre);
-       }else{
-       System.out.println(CostumColor.PURPLE_BOLD_BRIGHT +"Aucun Reserve Doc deja reserve "+ CostumColor.RESET);
+    if(livreDao.checkIdLivre(idoc) && etudienDao.checkIdEtu(iduser)) {
 
-   }
+        if (!empruntDao.checkReserve(idoc)) {
+            livre.setId(idoc);
+            user.setId(iduser);
+            empruntDao.reserver(user, livre);
+        } else {
+            System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "Aucun Reserve Doc deja reserve " + CostumColor.RESET);
 
+        }
+    }
 }
     public static  void menuLivreEmprunt(){
         do {
             System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option Livre  : " + CostumColor.RESET);
-            System.out.println("✨|Press  -to" +CostumColor.PURPLE_BOLD_BRIGHT +"|•  (Livre)"             + CostumColor.RESET);
+            System.out.println("✨|Press  ----" +CostumColor.PURPLE_BOLD_BRIGHT +"|•  (Livre)"             + CostumColor.RESET);
             System.out.println("✨|Press  1-to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Emprunt (Livre)"             + CostumColor.RESET);
             System.out.println("✨|Press  2-to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Reserve (Livre)"             + CostumColor.RESET);
             System.out.println("✨|Press  3-to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche (Livre)"             + CostumColor.RESET);
@@ -138,7 +154,8 @@ public  static void reserveLivre(){
                   case 1:
                       empruntLivre();
                       break;
-                  case 2 :reserveLivre();
+                  case 2 :
+                      reserveLivre();
                       break;
                   case 3 :
                       //affiche

@@ -194,13 +194,13 @@ public class EtudienDao implements UserInterface<Etudiant> {
                 if (resultSet.next()) {
                     return true;
                 } else {
-                    LoggerMessage.warn("Failed to retrieve professeur ID:  "+id);
+                    LoggerMessage.warn("Failed to retrieve etudiant ID:  "+id);
                     return false;
                 }
             }
 
         } catch (Exception e) {
-            LoggerMessage.error("Failed to retrieve professeur ID: " + e.getMessage());
+            LoggerMessage.error("Failed to retrieve etudiant ID: " + e.getMessage());
             return false;
         }
     }
