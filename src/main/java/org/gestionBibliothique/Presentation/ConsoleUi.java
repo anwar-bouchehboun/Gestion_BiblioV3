@@ -1,17 +1,20 @@
 package org.gestionBibliothique.Presentation;
 
+import org.gestionBibliothique.Metier.Dao.EmpruntDao;
 import org.gestionBibliothique.Metier.Entite.Document;
 import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.Livre;
 import org.gestionBibliothique.Metier.Entite.Utilisateur;
 import org.gestionBibliothique.Utilitaire.InputValidator;
 
+import java.lang.reflect.Member;
+
 public class ConsoleUi {
 
     public static   JournalTheseUI journalTheseUI=new JournalTheseUI();
     public static MagazinlivreUi magazinlivreUi = new MagazinlivreUi();
     public static UserUI userUI=new UserUI();
-
+    public static EmpruntDao empruntDao =new EmpruntDao();
     public  ConsoleUi(){
 
     }
@@ -42,6 +45,8 @@ public class ConsoleUi {
                        userUI.Strat();
                        break;
                    case 4 :
+                       menuEmprunt();
+
                        break;
                    case 5 :
                        System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit Menu Prancipal_______------" + CostumColor.RESET);
@@ -57,7 +62,7 @@ public class ConsoleUi {
 
 
 
-    public void menuEmprunt(){
+    public static void menuEmprunt(){
         do {
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
             System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
@@ -70,7 +75,9 @@ public class ConsoleUi {
             System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
             int choix= InputValidator.getIntInput("Entre Choix : ");
             switch (choix){
-                case 1:break;
+                case 1:
+                    empruntLivre();
+                    break;
                 case 2:break;
                 case 3:break;
                 case 4:break;
@@ -84,12 +91,19 @@ public class ConsoleUi {
             }
         }while(true);
     }
-public void empruntLivre(){
+public static void empruntLivre(){
     Document livre=new Livre();
     Utilisateur user= new Etudiant();
     int idoc =InputValidator.getIntInput("Entre Nombre Livre : ");
-    int  iduser=InputValidator.getIntInput("Entre Nombre Etudiant");
+    int  iduser=InputValidator.getIntInput("Entre Nombre  User :");
     livre.setId(idoc);
     user.setId(iduser);
+   if( empruntDao.checkReserve(idoc))
+   {                System.out.println("Document Deja reservé!");
+
+      }else {
+       empruntDao.emprunter(user,livre);
+   }
+
 }
 }

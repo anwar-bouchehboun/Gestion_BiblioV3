@@ -4,6 +4,7 @@ import org.gestionBibliothique.Metier.DbConnection.DbConnection;
 import org.gestionBibliothique.Metier.Entite.Utilisateur;
 import org.gestionBibliothique.Metier.Entite.Document;
 import org.gestionBibliothique.Metier.Interface.Empruntable;
+import org.gestionBibliothique.Metier.Interface.Reserver;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class EmpruntDao implements Empruntable<Document> {
+public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
 
 
     public EmpruntDao() {
@@ -99,7 +100,7 @@ public class EmpruntDao implements Empruntable<Document> {
 
 
     public boolean checkDoc(int id ){
-        String sql = "SELECT emprunt_status FROM emprunt where  id_document = ?";
+        String sql = "SELECT emprunt_status FROM emprunt WHERE emprunt_status = true AND id_document = ?";
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -144,6 +145,39 @@ public class EmpruntDao implements Empruntable<Document> {
         } catch (Exception e) {
             LoggerMessage.error("Failed to retrieve document ID: " + e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public void reserver(Utilisateur utilisateur, Document document) {
+
+    }
+
+    @Override
+    public void annulerReservation(int id) {
+
+    }
+    public boolean checkReserve(int id ){
+        String sql = "SELECT reservation_status FROM emprunt WHERE reservation_status = true AND id_document = ?";
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery() ;
+            if (resultSet.next()) {
+                return resultSet.getBoolean("reservation_status");
+
+            } else {
+                System.out.println("No  found with ID: " + id);
+                return false;
+
+            }
+
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve emprunt ID: " + e.getMessage());
+            return false;
         }
     }
 }
