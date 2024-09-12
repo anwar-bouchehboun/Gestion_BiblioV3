@@ -44,15 +44,16 @@ public class EmpruntDao implements Empruntable<Document> {
       }
   }
     // Method to return a document
-
-    public void retourner(int empruntId)  {
-        String query = "UPDATE emprunt SET date_retour = ?, status = false WHERE id = ?";
+@Override
+    public void retourner(Document document)  {
+        int idDoc=documentId(document.getId());
+        String query = "UPDATE emprunt SET date_retour = ?, emprunt_status = false WHERE id_document = ?";
 
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
-            statement.setInt(2, empruntId);
+            statement.setInt(2, idDoc);
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -69,18 +70,19 @@ public class EmpruntDao implements Empruntable<Document> {
     @Override
     public void emprunter(Utilisateur utilisateur, Document document)  {
         int idDoc=documentId(document.getId());
+        int idUser=userId(utilisateur.getId());
          boolean status=checkDoc(document.getId());
        if (status){
            System.out.println("Document Emprunt Déja!");
        }else {
 
-        String query = "INSERT INTO emprunt (id_utilisateur,id_document, date_emprunt, status) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO emprunt (id_document, id_utilisateur, date_emprunt, emprunt_status) VALUES (?, ?, ?, ?)";
 
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, utilisateur.getId());
-            statement.setInt(2, idDoc);
+            statement.setInt(1,idDoc);
+            statement.setInt(2, idUser);
             statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
             statement.setBoolean(4, true);
 
@@ -97,7 +99,7 @@ public class EmpruntDao implements Empruntable<Document> {
 
 
     public boolean checkDoc(int id ){
-        String sql = "SELECT status FROM emprunt where  id_document = ?";
+        String sql = "SELECT emprunt_status FROM emprunt where  id_document = ?";
         try (
                 Connection connection = DbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -106,7 +108,7 @@ public class EmpruntDao implements Empruntable<Document> {
             ResultSet resultSet = preparedStatement.executeQuery() ;
             if (resultSet.next()) {
 
-                return resultSet.getBoolean("status");
+                return resultSet.getBoolean("emprunt_status");
 
             } else {
                 System.out.println("No emprunt found with ID: " + id);
@@ -118,6 +120,30 @@ public class EmpruntDao implements Empruntable<Document> {
         } catch (Exception e) {
             LoggerMessage.error("Failed to retrieve emprunt ID: " + e.getMessage());
             return false;
+        }
+    }
+    public Integer userId(int id){
+
+        String sql = "SELECT id FROM utilisateurs where  id = ?";
+        try (Connection connection = DbConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery() ;
+            if (resultSet.next()) {
+
+                return resultSet.getInt("id");
+
+            } else {
+                System.out.println("No document found with ID: " + id);
+                return null;
+
+            }
+
+
+        } catch (Exception e) {
+            LoggerMessage.error("Failed to retrieve document ID: " + e.getMessage());
+            return null;
         }
     }
 }

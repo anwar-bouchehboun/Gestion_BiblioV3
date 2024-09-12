@@ -26,7 +26,7 @@ public class JournalTheseUI {
 
     }
 
-    public void stratJournal() {
+    public  void stratJournal() {
 do{
     MenuStartJournal();
 
@@ -40,15 +40,14 @@ do{
                 menuMiseAjourThese();
                 break;
             case 3:
-//EMprunt
+
+menuRecherche();
                 break;
             case 4:
-                menuRecherche();
-                break;
-
-            case 5:
                 System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit Menu Journal_______------" + CostumColor.RESET);
                 return;
+
+
 
 
             default:
@@ -64,9 +63,8 @@ do{
         System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
         System.out.println("|Press 1 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• GESTION (JournalScientifique)"      + CostumColor.RESET);
         System.out.println("|Press 2 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• GESTION (ThèseUniversitaire)"      + CostumColor.RESET);
-        System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Liste Emprunter/Retouner un document"  + CostumColor.RESET);
-        System.out.println("|Press 4 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Rechercher un document(JournalScientifique ou ThèseUniversitaire) "+ CostumColor.RESET);
-        System.out.println("|Press 5 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT__________"+ CostumColor.RESET);
+        System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Rechercher un document(JournalScientifique ou ThèseUniversitaire) "+ CostumColor.RESET);
+        System.out.println("|Press 4 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT__________"+ CostumColor.RESET);
         System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
         System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
 
