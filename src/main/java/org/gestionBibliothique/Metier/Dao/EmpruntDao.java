@@ -72,10 +72,11 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
     public void emprunter(Utilisateur utilisateur, Document document)  {
         int idDoc=documentId(document.getId());
         int idUser=userId(utilisateur.getId());
-         boolean status=checkDoc(document.getId());
-       if (status){
+
+       if (checkDoc(idDoc)){
            System.out.println("Document Emprunt Déja!");
-       }else {
+           return;
+       }
 
         String query = "INSERT INTO emprunt (id_document, id_utilisateur, date_emprunt, emprunt_status) VALUES (?, ?, ?, ?)";
 
@@ -93,12 +94,12 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
             System.err.println("Error borrowing document: " + e.getMessage());
 
         }
-       }
+
     }
 
 
 
-
+//check Emprunt Doc
     public boolean checkDoc(int id ){
         String sql = "SELECT emprunt_status FROM emprunt WHERE emprunt_status = true AND id_document = ?";
         try (
@@ -150,13 +151,59 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
 
     @Override
     public void reserver(Utilisateur utilisateur, Document document) {
+        int idDoc=documentId(document.getId());
+        int idUser=userId(utilisateur.getId());
+        if(checkReserve(idDoc)){
+            System.out.print("Deja reserve ");
+            return;
+        }
+        String query = "INSERT INTO emprunt (id_document, id_utilisateur, date_emprunt, reservation_status) VALUES (?, ?, ?, ?)";
 
+      //  String query = "UPDATE emprunt SET date_emprunt=? , reservation_status = true WHERE id_document = ?";
+
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1,idDoc);
+            statement.setInt(2, idUser);
+            statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            statement.setBoolean(4, true);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Document Reserve  successfully!");
+            } else {
+                System.out.println("Document  not found!");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error returning document: " + e.getMessage());
+
+        }
     }
 
     @Override
-    public void annulerReservation(int id) {
+    public void annulerReservation(Document document) {
 
+        int idDoc=documentId(document.getId());
+        String query = "UPDATE emprunt SET date_retour = ?, reservation_status = false WHERE id_document = ?";
+
+        try (
+                Connection connection = DbConnection.getInstance().getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            statement.setInt(2, idDoc);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Document annuler Reservation successfully!");
+            } else {
+                System.out.println("Document  not found!");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error returning document: " + e.getMessage());
+
+        }
     }
+    //check reserve doc
     public boolean checkReserve(int id ){
         String sql = "SELECT reservation_status FROM emprunt WHERE reservation_status = true AND id_document = ?";
         try (
@@ -169,7 +216,6 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
                 return resultSet.getBoolean("reservation_status");
 
             } else {
-                System.out.println("No  found with ID: " + id);
                 return false;
 
             }

@@ -47,6 +47,11 @@ public class ReserveDao implements Reserver<Document> {
     }
 
     @Override
+    public void annulerReservation(Document document) {
+
+    }
+
+
     public void annulerReservation(int id) {
         String query = "UPDATE reservations SET status = false WHERE id = ?";
 

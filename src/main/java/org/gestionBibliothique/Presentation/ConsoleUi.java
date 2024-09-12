@@ -76,9 +76,10 @@ public class ConsoleUi {
             int choix= InputValidator.getIntInput("Entre Choix : ");
             switch (choix){
                 case 1:
-                    empruntLivre();
+                    menuLivreEmprunt();
                     break;
-                case 2:break;
+                case 2:
+                    break;
                 case 3:break;
                 case 4:break;
                 case 5 :
@@ -99,11 +100,57 @@ public static void empruntLivre(){
     livre.setId(idoc);
     user.setId(iduser);
    if( empruntDao.checkReserve(idoc))
-   {                System.out.println("Document Deja reservé!");
+   {
+       System.out.println(CostumColor.PURPLE_BOLD_BRIGHT +"Document Deja reservé!"+ CostumColor.RESET);
 
       }else {
        empruntDao.emprunter(user,livre);
    }
 
 }
+public  static void reserveLivre(){
+    Document livre=new Livre();
+    Utilisateur user= new Etudiant();
+    int idoc =InputValidator.getIntInput("Entre Nombre Livre : ");
+    int  iduser=InputValidator.getIntInput("Entre Nombre  User :");
+   if(!empruntDao.checkReserve(idoc)) {
+       livre.setId(idoc);
+       user.setId(iduser);
+       empruntDao.reserver(user,livre);
+       }else{
+       System.out.println(CostumColor.PURPLE_BOLD_BRIGHT +"Aucun Reserve Doc deja reserve "+ CostumColor.RESET);
+
+   }
+
+}
+    public static  void menuLivreEmprunt(){
+        do {
+            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option Livre  : " + CostumColor.RESET);
+            System.out.println("✨|Press  -to" +CostumColor.PURPLE_BOLD_BRIGHT +"|•  (Livre)"             + CostumColor.RESET);
+            System.out.println("✨|Press  1-to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Emprunt (Livre)"             + CostumColor.RESET);
+            System.out.println("✨|Press  2-to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Reserve (Livre)"             + CostumColor.RESET);
+            System.out.println("✨|Press  3-to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche (Livre)"             + CostumColor.RESET);
+            System.out.println("\uD83E\uDD47|Press 5 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Emprunt Livre__________"+ CostumColor.RESET);
+            System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
+            System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
+            int choix =InputValidator.getIntInput("Entre choix: ");
+              switch (choix){
+                  case 1:
+                      empruntLivre();
+                      break;
+                  case 2 :reserveLivre();
+                      break;
+                  case 3 :
+                      //affiche
+                      break;
+                  case 4:
+                  System.out.println(CostumColor.PURPLE_BOLD_BRIGHT + "-----_____Exit Menu Emprunt Livre_______------" + CostumColor.RESET);
+                  return;
+                  default:
+                      System.out.println(CostumColor.RED_BOLD_BRIGHT + "Invalid choice");
+                      break;
+
+              }
+        }while (true);
+    }
 }
