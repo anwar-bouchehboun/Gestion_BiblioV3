@@ -1,6 +1,6 @@
 package org.gestionBibliothique.Presentation;
 
-import org.gestionBibliothique.Metier.Dao.EtudienDao;
+import org.gestionBibliothique.Metier.Dao.EtudiantnDao;
 import org.gestionBibliothique.Metier.Dao.ProfDao;
 import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.Professeur;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class UserUI {
 
     public final ProfDao profDao=new ProfDao();
-    public  final EtudienDao etudienDao = new EtudienDao();
+    public  final EtudiantnDao etudienDao = new EtudiantnDao();
     public final Professeur professeur=new Professeur();
     public final Etudiant etudiant =new Etudiant();
     public UserUI(){

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class EtudienDao implements UserInterface<Etudiant> {
+public class EtudiantnDao implements UserInterface<Etudiant> {
     public static HashMap<Integer, Etudiant> Etu= new HashMap<>();
 
     @Override
@@ -48,8 +48,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public void update(Etudiant utilisateur) {
         try {
             String query = "UPDATE etudiant SET nom=?,id_massar=? WHERE id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query);
 
             stmt.setString(1, utilisateur.getNom());
             stmt.setString(2, utilisateur.getIdMassar());
@@ -73,8 +72,7 @@ public class EtudienDao implements UserInterface<Etudiant> {
             Etu.remove(utilisateur.getId());
 
             String sql="DELETE FROM etudiant WHERE id =?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt=connection.prepareStatement(sql);
+            PreparedStatement stmt=DbConnection.getInstance().getConnection().prepareStatement(sql);
             stmt.setInt(1,utilisateur.getId());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -162,8 +160,8 @@ public class EtudienDao implements UserInterface<Etudiant> {
 
         String sql = "SELECT id FROM etudiant where  id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setInt(1, utilisateur.getId());
          ResultSet resultSet = preparedStatement.executeQuery() ;
@@ -186,8 +184,8 @@ public class EtudienDao implements UserInterface<Etudiant> {
     public boolean checkIdEtu(int id) {
         String sql = "SELECT id FROM etudiant WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+                PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

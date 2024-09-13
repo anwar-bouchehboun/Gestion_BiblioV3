@@ -22,9 +22,8 @@ public class MagazinDao implements DocumentInterface<Magazine> {
     public void create(Magazine document) {
         String query = "INSERT INTO magazine (titre, auteur, date_publication, nombre_de_pages, type,numero) VALUES (?, ?, ?, ?, ?, ?)";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
 
-                PreparedStatement stmt = connection.prepareStatement(query)) {
+                PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query)) {
 
             // Set parameters for the PreparedStatement
             stmt.setString(1, document.getTitre());
@@ -56,8 +55,7 @@ public class MagazinDao implements DocumentInterface<Magazine> {
     public void update(Magazine document) {
         try {
             String query = "UPDATE magazine SET titre=?, auteur=?, date_publication=?, nombre_de_pages=?,numero=? WHERE id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query);
             stmt.setString(1, document.getTitre());
             stmt.setString(2, document.getAuteur());
             stmt.setDate(3, java.sql.Date.valueOf(document.getDatePublication()));
@@ -80,8 +78,7 @@ public class MagazinDao implements DocumentInterface<Magazine> {
         try {
             magazine.remove(document.getId());
             String query = "DELETE FROM magazine WHERE id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query);
             stmt.setInt(1,document.getId());
             int rowsAffected = stmt.executeUpdate();
 
@@ -180,8 +177,7 @@ public class MagazinDao implements DocumentInterface<Magazine> {
     public boolean checkIdMagazine(int id) {
         String sql = "SELECT id FROM magazine WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

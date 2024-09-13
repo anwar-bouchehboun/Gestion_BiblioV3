@@ -49,8 +49,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public void update(Professeur utilisateur) {
         try {
             String query = "UPDATE professeur SET nom=?, idmassarprof=? WHERE id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query);
 
             stmt.setString(1, utilisateur.getNom());
        //     stmt.setString(2, utilisateur.getTypeUser().name());
@@ -74,8 +73,7 @@ public class ProfDao implements UserInterface<Professeur> {
        try {
            Professeur.remove(utilisateur.getId());
            String sql="DELETE FROM professeur WHERE id =?";
-           Connection connection = DbConnection.getInstance().getConnection();
-           PreparedStatement stmt=connection.prepareStatement(sql);
+           PreparedStatement stmt=DbConnection.getInstance().getConnection().prepareStatement(sql);
            stmt.setInt(1,utilisateur.getId());
            int rowsAffected = stmt.executeUpdate();
            if (rowsAffected > 0) {
@@ -164,8 +162,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public Integer profId(Professeur utilisateur) {
         String sql = "SELECT id FROM professeur WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, utilisateur.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -184,8 +181,7 @@ public class ProfDao implements UserInterface<Professeur> {
     public boolean checkIdProf(int id) {
         String sql = "SELECT id FROM professeur WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

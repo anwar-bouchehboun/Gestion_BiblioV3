@@ -22,9 +22,8 @@ public class LivreDao implements DocumentInterface<Livre> {
     public void create(Livre document) {
         String query = "INSERT INTO livre (titre, auteur, date_publication, nombre_de_pages, type,isbn) VALUES (?, ?, ?, ?, ?, ?)";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
 
-                PreparedStatement stmt = connection.prepareStatement(query)) {
+                PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query)) {
 
             // Set parameters for the PreparedStatement
             stmt.setString(1, document.getTitre());

@@ -15,7 +15,6 @@ import java.time.LocalDate;
 
 public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
 
-
     public EmpruntDao() {
     }
 
@@ -23,7 +22,8 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
   public Integer documentId(int id){
 
       String sql = "SELECT id FROM document where  id = ?";
-      try (Connection connection = DbConnection.getInstance().getConnection();
+      try (
+              Connection connection = DbConnection.getInstance().getConnection();
            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
           preparedStatement.setInt(1,id);
@@ -51,8 +51,7 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
         String query = "UPDATE emprunt SET date_retour = ?, emprunt_status = false WHERE id_document = ?";
 
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = DbConnection.getInstance().getConnection().prepareStatement(query)) {
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
             statement.setInt(2, idDoc);
 
@@ -62,6 +61,7 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
             } else {
                 System.out.println("Document  not found!");
             }
+
         } catch (SQLException e) {
             System.err.println("Error returning document: " + e.getMessage());
 
@@ -81,8 +81,8 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
         String query = "INSERT INTO emprunt (id_document, id_utilisateur, date_emprunt, emprunt_status) VALUES (?, ?, ?, ?)";
 
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+
+                PreparedStatement statement = DbConnection.getInstance().getConnection().prepareStatement(query)) {
             statement.setInt(1,idDoc);
             statement.setInt(2, idUser);
             statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
@@ -103,8 +103,7 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
     public boolean checkDoc(int id ){
         String sql = "SELECT emprunt_status FROM emprunt WHERE emprunt_status = true AND id_document = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery() ;
@@ -127,8 +126,8 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
     public Integer userId(int id){
 
         String sql = "SELECT id FROM utilisateurs where  id = ?";
-        try (Connection connection = DbConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (
+             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery() ;
@@ -162,8 +161,8 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
       //  String query = "UPDATE emprunt SET date_emprunt=? , reservation_status = true WHERE id_document = ?";
 
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+
+                PreparedStatement statement = DbConnection.getInstance().getConnection().prepareStatement(query)) {
             statement.setInt(1,idDoc);
             statement.setInt(2, idUser);
             statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
@@ -187,8 +186,7 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
         String query = "UPDATE emprunt SET date_retour = ?, reservation_status = false WHERE id_document = ?";
 
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = DbConnection.getInstance().getConnection().prepareStatement(query)) {
             statement.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
             statement.setInt(2, idDoc);
 
@@ -207,8 +205,8 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
     public boolean checkReserve(int id ){
         String sql = "SELECT reservation_status FROM emprunt WHERE reservation_status = true AND id_document = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+                PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery() ;

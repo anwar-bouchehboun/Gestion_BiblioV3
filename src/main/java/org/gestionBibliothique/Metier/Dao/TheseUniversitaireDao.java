@@ -21,9 +21,8 @@ public class TheseUniversitaireDao implements DocumentInterface<ThèseUniversita
         String query = "INSERT INTO these_universitaire (titre, auteur, date_publication, nombre_de_pages, type, \"université\") VALUES (?, ?, ?, ?, ?, ?)";
 
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
 
-                PreparedStatement stmt = connection.prepareStatement(query)) {
+                PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query)) {
 
             // Set parameters for the PreparedStatement
             stmt.setString(1, document.getTitre());
@@ -63,8 +62,7 @@ public class TheseUniversitaireDao implements DocumentInterface<ThèseUniversita
     public void update(ThèseUniversitaire document) {
         try {
             String query = "UPDATE these_universitaire SET titre=?, auteur=?, date_publication=?, nombre_de_pages=?, \"université\"=? WHERE id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query);
             stmt.setString(1, document.getTitre());
             stmt.setString(2, document.getAuteur());
             stmt.setDate(3, java.sql.Date.valueOf(document.getDatePublication()));
@@ -87,8 +85,7 @@ public class TheseUniversitaireDao implements DocumentInterface<ThèseUniversita
         try {
             These.remove(document.getId());
             String query = "DELETE FROM these_universitaire WHERE id = ?";
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query);
             stmt.setInt(1,document.getId());
             int rowsAffected = stmt.executeUpdate();
 
@@ -164,8 +161,7 @@ public class TheseUniversitaireDao implements DocumentInterface<ThèseUniversita
     public boolean checkIdTheseUnv(int id) {
         String sql = "SELECT id FROM these_universitaire WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {

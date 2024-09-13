@@ -25,9 +25,8 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
         String query = "INSERT INTO journal_scientifique (titre, auteur, date_publication, nombre_de_pages, type, domainerecherche) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
 
-             PreparedStatement stmt = connection.prepareStatement(query)) {
+             PreparedStatement stmt = DbConnection.getInstance().getConnection().prepareStatement(query)) {
 
             // Set parameters for the PreparedStatement
             stmt.setString(1, document.getTitre());
@@ -189,8 +188,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     public Integer readId(JournalScientifique document) {
         String sql = "SELECT id FROM journal_scientifique WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, document.getId());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -210,8 +208,7 @@ public class JornalScientifiqueDao implements DocumentInterface<JournalScientifi
     public boolean checkIdJournal_scientifique(int id) {
         String sql = "SELECT id FROM journal_scientifique WHERE id = ?";
         try (
-                Connection connection = DbConnection.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
 
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
