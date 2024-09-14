@@ -1,6 +1,7 @@
 package org.gestionBibliothique.Metier.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
+import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Entite.ThèseUniversitaire;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
 import org.gestionBibliothique.Metier.Interface.DocumentInterface;
@@ -55,7 +56,24 @@ public class TheseUniversitaireDao implements DocumentInterface<ThèseUniversita
 
     @Override
     public Optional<ThèseUniversitaire> finId(ThèseUniversitaire document) {
-        return Optional.empty();
+        findAll();
+        Optional<ThèseUniversitaire> J= checkId(document.getId());
+        if (J.isPresent()) {
+            ThèseUniversitaire journal = J.get();
+            LoggerMessage.info(String.format("%-10s | %-20s | %-20s | %-20s | %-14s | %-25s | %-20s%n",
+                    "ID", "Titre", "Auteur", "Date Publication", "Nombre Pages", "Type", "Universite"));
+            LoggerMessage.info(String.format("%-10d | %-20s | %-20s | %-20s | %-14d | %-25s | %-20s%n",
+                    journal.getId(),
+                    journal.getTitre(),
+                    journal.getAuteur(),
+                    journal.getDatePublication().toString(),
+                    journal.getNombreDePages(),
+                    journal.getType().name(),
+                    journal.getUniversite()));
+        } else {
+            System.out.println("No ThèseUniversitaire found with ID: " + document.getId());
+        }
+        return J;
     }
 
     @Override
@@ -168,13 +186,13 @@ public class TheseUniversitaireDao implements DocumentInterface<ThèseUniversita
                 if (resultSet.next()) {
                     return true;
                 } else {
-                    LoggerMessage.warn("Failed to retrieve journal_scientifique ID:  "+id);
+                    LoggerMessage.warn("Failed to retrieve these_universitaire ID:  "+id);
                     return false;
                 }
             }
 
         } catch (Exception e) {
-            LoggerMessage.error("Failed to retrieve journal_scientifique ID: " + e.getMessage());
+            LoggerMessage.error("Failed to retrieve these_universitaire ID: " + e.getMessage());
             return false;
         }
     }

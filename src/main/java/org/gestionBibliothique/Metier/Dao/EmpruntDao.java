@@ -112,7 +112,6 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
                 return resultSet.getBoolean("emprunt_status");
 
             } else {
-                System.out.println("No emprunt found with ID: " + id);
                 return false;
 
             }
@@ -136,14 +135,14 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
                 return resultSet.getInt("id");
 
             } else {
-                System.out.println("No document found with ID: " + id);
+                System.out.println("No utilisateurs found with ID: " + id);
                 return null;
 
             }
 
 
         } catch (Exception e) {
-            LoggerMessage.error("Failed to retrieve document ID: " + e.getMessage());
+            LoggerMessage.error("Failed to retrieve utilisateurs ID: " + e.getMessage());
             return null;
         }
     }
@@ -158,7 +157,6 @@ public class EmpruntDao implements Empruntable<Document>, Reserver<Document> {
         }
         String query = "INSERT INTO emprunt (id_document, id_utilisateur, date_emprunt, reservation_status) VALUES (?, ?, ?, ?)";
 
-      //  String query = "UPDATE emprunt SET date_emprunt=? , reservation_status = true WHERE id_document = ?";
 
         try (
 

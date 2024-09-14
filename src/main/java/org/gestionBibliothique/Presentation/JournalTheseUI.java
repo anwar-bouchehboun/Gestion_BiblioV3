@@ -220,7 +220,8 @@ menuRecherche();
     }
     public void rrechercheTitreThese(){
         int id=  InputValidator.getIntInput("Entre Recherche ID :");
-
+        theseUniversitaire.setId(id);
+        theseUniversitaireDao.finId(theseUniversitaire);
     }
     public void menuMiseAjourThese(){
         do {

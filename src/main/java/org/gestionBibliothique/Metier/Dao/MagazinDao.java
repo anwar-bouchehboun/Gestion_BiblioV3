@@ -184,13 +184,13 @@ public class MagazinDao implements DocumentInterface<Magazine> {
                 if (resultSet.next()) {
                     return true;
                 } else {
-                    LoggerMessage.warn("Failed to retrieve livre ID:  "+id);
+                    LoggerMessage.warn("Failed to retrieve MAGAZINE ID:  "+id);
                     return false;
                 }
             }
 
         } catch (Exception e) {
-            LoggerMessage.error("Failed to retrieve LIVRE ID: " + e.getMessage());
+            LoggerMessage.error("Failed to retrieve MAGAZINE ID: " + e.getMessage());
             return false;
         }
     }
