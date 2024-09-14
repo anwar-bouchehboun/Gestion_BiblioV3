@@ -1,7 +1,7 @@
 package org.gestionBibliothique.Presentation;
 
-import org.gestionBibliothique.Metier.Dao.EtudiantnDao;
-import org.gestionBibliothique.Metier.Dao.ProfDao;
+import org.gestionBibliothique.Dao.EtudiantnDao;
+import org.gestionBibliothique.Dao.ProfDao;
 import org.gestionBibliothique.Metier.Entite.Etudiant;
 import org.gestionBibliothique.Metier.Entite.Professeur;
 import org.gestionBibliothique.Metier.Enum.TypeUser;

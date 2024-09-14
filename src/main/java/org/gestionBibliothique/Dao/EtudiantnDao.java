@@ -1,4 +1,4 @@
-package org.gestionBibliothique.Metier.Dao;
+package org.gestionBibliothique.Dao;
 
 import org.gestionBibliothique.Metier.DbConnection.DbConnection;
 import org.gestionBibliothique.Metier.Entite.Etudiant;

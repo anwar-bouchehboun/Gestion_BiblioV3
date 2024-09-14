@@ -1,7 +1,7 @@
 package org.gestionBibliothique.Presentation;
 
-import org.gestionBibliothique.Metier.Dao.JornalScientifiqueDao;
-import org.gestionBibliothique.Metier.Dao.TheseUniversitaireDao;
+import org.gestionBibliothique.Dao.JornalScientifiqueDao;
+import org.gestionBibliothique.Dao.TheseUniversitaireDao;
 import org.gestionBibliothique.Metier.Entite.Bibliotheque;
 import org.gestionBibliothique.Metier.Entite.JournalScientifique;
 import org.gestionBibliothique.Metier.Entite.ThèseUniversitaire;

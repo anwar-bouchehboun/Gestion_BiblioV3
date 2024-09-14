@@ -1,6 +1,6 @@
 package org.gestionBibliothique.Presentation;
 
-import org.gestionBibliothique.Metier.Dao.*;
+import org.gestionBibliothique.Dao.*;
 import org.gestionBibliothique.Metier.Entite.*;
 import org.gestionBibliothique.Utilitaire.InputValidator;
 import org.gestionBibliothique.Utilitaire.LoggerMessage;
@@ -14,7 +14,7 @@ public class ConsoleUi {
     public static LivreDao livreDao = new LivreDao();
     public static MagazinDao magazinDao = new MagazinDao();
     public static TheseUniversitaireDao theseUniversitaireDao= new TheseUniversitaireDao();
-    public static  JornalScientifiqueDao jornalScientifiqueDao=new JornalScientifiqueDao();
+    public static JornalScientifiqueDao jornalScientifiqueDao=new JornalScientifiqueDao();
     public static   JournalTheseUI journalTheseUI=new JournalTheseUI();
     public static MagazinlivreUi magazinlivreUi = new MagazinlivreUi();
     public static UserUI userUI=new UserUI();

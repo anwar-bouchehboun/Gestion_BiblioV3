@@ -1,6 +1,6 @@
 package org.gestionBibliothique.Metier.Entite;
 
-import org.gestionBibliothique.Metier.Dao.JornalScientifiqueDao;
+import org.gestionBibliothique.Dao.JornalScientifiqueDao;
 
 import java.util.HashMap;
 

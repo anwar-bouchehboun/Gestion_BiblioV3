@@ -1,7 +1,7 @@
 package org.gestionBibliothique.Presentation;
 
-import org.gestionBibliothique.Metier.Dao.LivreDao;
-import org.gestionBibliothique.Metier.Dao.MagazinDao;
+import org.gestionBibliothique.Dao.LivreDao;
+import org.gestionBibliothique.Dao.MagazinDao;
 import org.gestionBibliothique.Metier.Entite.Livre;
 import org.gestionBibliothique.Metier.Entite.Magazine;
 import org.gestionBibliothique.Metier.Enum.TypeDocument;
