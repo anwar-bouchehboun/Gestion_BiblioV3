@@ -48,11 +48,11 @@ public class UserUI {
 
     public void MenuUser(){
         System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
-        System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
-        System.out.println("|Press 1 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• GESTION (Professeur)"      + CostumColor.RESET);
-        System.out.println("|Press 2 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• GESTION (Etudiant)"      + CostumColor.RESET);
-        System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Rechercher un document(Professeur ou Etudiant) "+ CostumColor.RESET);
-        System.out.println("|Press 4 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT__________"+ CostumColor.RESET);
+        System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choisissez l'option ci-dessous en fonction de votre Désignation : " + CostumColor.RESET);
+        System.out.println("|Appuyez sur 1 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• GESTION (Professeur)"      + CostumColor.RESET);
+        System.out.println("|Appuyez sur 2 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• GESTION (Etudiant)"      + CostumColor.RESET);
+        System.out.println("|Appuyez sur 3 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Rechercher un document(Professeur ou Etudiant) "+ CostumColor.RESET);
+        System.out.println("|Appuyez sur 4 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT__________"+ CostumColor.RESET);
         System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
         System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
 
@@ -62,10 +62,10 @@ public class UserUI {
     public void menuRechercheUser(){
         do {
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
-            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
-            System.out.println("|Press 1 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Recherche un user (Professeur )"      + CostumColor.RESET);
-            System.out.println("|Press 2 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Recherche un user   (Etudiant)"+ CostumColor.RESET);
-            System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Menu Rechecheche __________"+ CostumColor.RESET);
+            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choisissez l'option ci-dessous en fonction de votre Désignation  : " + CostumColor.RESET);
+            System.out.println("|Appuyez sur 1 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Recherche un user (Professeur )"      + CostumColor.RESET);
+            System.out.println("|Appuyez sur 2 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Recherche un user   (Etudiant)"+ CostumColor.RESET);
+            System.out.println("|Appuyez sur 3 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Menu Rechecheche __________"+ CostumColor.RESET);
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
             System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
 
@@ -90,12 +90,12 @@ public class UserUI {
     public void menuMiseAjourUserProf(){
         do {
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
-            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
-            System.out.println("|Press 1 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Ajouter un User (Professeur )"      + CostumColor.RESET);
-            System.out.println("|Press 2 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Modifier un User "  + CostumColor.RESET);
-            System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Supprimer un User   (Professeur )"+ CostumColor.RESET);
-            System.out.println("|Press 4 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche un User   (Professeur)"+ CostumColor.RESET);
-            System.out.println("|Press 5 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Professeur__________"+ CostumColor.RESET);
+            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choisissez l'option ci-dessous en fonction de votre Désignation  : " + CostumColor.RESET);
+            System.out.println("|Appuyez sur 1 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Ajouter un User (Professeur )"      + CostumColor.RESET);
+            System.out.println("|Appuyez sur 2 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Modifier un User "  + CostumColor.RESET);
+            System.out.println("|Appuyez sur 3 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Supprimer un User   (Professeur )"+ CostumColor.RESET);
+            System.out.println("|Appuyez sur 4 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche un User   (Professeur)"+ CostumColor.RESET);
+            System.out.println("|Appuyez sur 5 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Professeur__________"+ CostumColor.RESET);
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
             System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
 
@@ -165,12 +165,12 @@ public class UserUI {
     public void menuMiseAjourUserEtu(){
         do {
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
-            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choose  Option from Below According to your Designation  : " + CostumColor.RESET);
-            System.out.println("|Press 1 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Ajouter un User (Etudiant )"      + CostumColor.RESET);
-            System.out.println("|Press 2 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Modifier un User Etudiant "  + CostumColor.RESET);
-            System.out.println("|Press 3 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Supprimer un User   (Etudiant )"+ CostumColor.RESET);
-            System.out.println("|Press 4 to" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche un User   (Etudiant)"+ CostumColor.RESET);
-            System.out.println("|Press 5 to" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Etudiant__________"+ CostumColor.RESET);
+            System.out.println(CostumColor.BLUE_BOLD_BRIGHT+"|Choisissez l'option ci-dessous en fonction de votre Désignation : " + CostumColor.RESET);
+            System.out.println("|Appuyez sur 1 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Ajouter un User (Etudiant )"      + CostumColor.RESET);
+            System.out.println("|Appuyez sur 2 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Modifier un User Etudiant "  + CostumColor.RESET);
+            System.out.println("|Appuyez sur 3 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Supprimer un User   (Etudiant )"+ CostumColor.RESET);
+            System.out.println("|Appuyez sur 4 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"|• Affiche un User   (Etudiant)"+ CostumColor.RESET);
+            System.out.println("|Appuyez sur 5 pour" +CostumColor.PURPLE_BOLD_BRIGHT +"| _____EXIT Etudiant__________"+ CostumColor.RESET);
             System.out.println(CostumColor.BROWN_BACKGROUND+CostumColor.WHITE_BOLD_BRIGHT+"----------------------------------------------------------- "+ CostumColor.RESET);
             System.out.println("Choix => : " +CostumColor.PURPLE_BOLD_BRIGHT + " CHOIX "+ CostumColor.RESET);
 
